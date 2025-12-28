@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from docker_runner import run_py_docker, run_js_docker
 import telebot
 import subprocess
 import os
@@ -31,7 +30,7 @@ app = Flask('')
 
 @app.route('/')
 def home():
-    return "I'am Marco File Host"
+    return "C̶R̶A̶K̶A̶ PYTHON BOT HOST"
 
 def run_flask():
     port = int(os.environ.get("PORT", 8080))
@@ -45,11 +44,11 @@ def keep_alive():
 # --- End Flask Keep Alive ---
 
 # --- Configuration ---
-TOKEN = '8524441338:AAHVZQ4Y3rTWkmNlQnjafNhyQf56mFC8ZcU'
+TOKEN = '7951330550:AAGdfWhSvHmZ64Px_4QRMd3CEHaVv400J9Q'
 OWNER_ID = 7575315425
 ADMIN_ID = 7575315425
-YOUR_USERNAME = '@mahfuj_offcial_143'
-UPDATE_CHANNEL = 'https://t.me/mahfuj_offcial'
+YOUR_USERNAME = '@DM_CRAKA_OWNER_BOT'
+UPDATE_CHANNEL = 'https://t.me/crakacwa'
 
 # Folder setup - using absolute paths
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
@@ -58,7 +57,7 @@ IROTECH_DIR = os.path.join(BASE_DIR, 'inf')
 DATABASE_PATH = os.path.join(IROTECH_DIR, 'bot_data.db')
 
 # File upload limits
-FREE_USER_LIMIT = 3
+FREE_USER_LIMIT = 10
 SUBSCRIBED_USER_LIMIT = 15
 ADMIN_LIMIT = 999
 OWNER_LIMIT = float('inf')
@@ -540,11 +539,10 @@ def run_script(script_path, script_owner_id, user_folder, file_name, message_obj
             if os.name == 'nt':
                  startupinfo = subprocess.STARTUPINFO(); startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
                  startupinfo.wShowWindow = subprocess.SW_HIDE
-            log_file_path = os.path.join(user_folder, f"{file_name}.log")
-            process = run_py_docker(
-                script_owner_id,
-                script_path,
-                log_file_path
+            process = subprocess.Popen(
+                [sys.executable, script_path], cwd=user_folder, stdout=log_file, stderr=log_file,
+                stdin=subprocess.PIPE, startupinfo=startupinfo, creationflags=creationflags,
+                encoding='utf-8', errors='ignore'
             )
             logger.info(f"Started Python process {process.pid} for {script_key}")
             bot_scripts[script_key] = {
@@ -655,11 +653,10 @@ def run_js_script(script_path, script_owner_id, user_folder, file_name, message_
             if os.name == 'nt':
                  startupinfo = subprocess.STARTUPINFO(); startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
                  startupinfo.wShowWindow = subprocess.SW_HIDE
-            log_file_path = os.path.join(user_folder, f"{file_name}.log")
-            process = run_py_docker(
-                script_owner_id,
-                script_path,
-                log_file_path
+            process = subprocess.Popen(
+                ['node', script_path], cwd=user_folder, stdout=log_file, stderr=log_file,
+                stdin=subprocess.PIPE, startupinfo=startupinfo, creationflags=creationflags,
+                encoding='utf-8', errors='ignore'
             )
             logger.info(f"Started JS process {process.pid} for {script_key}")
             bot_scripts[script_key] = {
